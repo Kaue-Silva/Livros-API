@@ -3,6 +3,8 @@ from server.instance import server
 from db import db
 from ma import ma
 
+from controllers import book
+
 app, api = server.app, server.api
 
 db.init_app(app)
