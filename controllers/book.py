@@ -41,7 +41,6 @@ class Book(Resource):
             return book_schema.dump(book_data), 200
         return {"message": ITEM_NOT_FOUND}, 404
 
-    @book_ns.expect(item)
     def delete(self, id):
         book_data = BookModel.find_by_id(id=id)
         if book_data:
