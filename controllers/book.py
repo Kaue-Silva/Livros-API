@@ -41,6 +41,19 @@ class Book(Resource):
             return book_schema.dump(book_data), 200
         return {"message": ITEM_NOT_FOUND}, 404
 
+    @book_ns.expect(item)
+    def patch(self, id):
+        book_json = request.get_json()
+        book_data = BookModel.find_by_id(id=id)
+        if book_data:
+            if "title" in book_json:
+                book_data.title = book_json["title"]
+            if "pages" in book_json:
+                book_data.pages = book_json["pages"]
+            book_data.save_to_db()
+            return book_schema.dump(book_data), 200
+        return {"message": ITEM_NOT_FOUND}, 404
+
     def delete(self, id):
         book_data = BookModel.find_by_id(id=id)
         if book_data:
